@@ -221,6 +221,8 @@ public class MainActivity extends Activity   implements OnClickListener{
 					break;
 				case UserWrapper.ACTION_RET_ACCOUNTSWITCH_FAIL://切换账号失败回调
 					break;
+				case UserWrapper.ACTION_RET_OPENSHOP://打开游戏商店回调
+					break;
 				default:
 					break;
 				}
@@ -265,6 +267,8 @@ public class MainActivity extends Activity   implements OnClickListener{
 				 */
 				case IAPWrapper.PAYRESULT_NOW_PAYING:
 					showTipDialog();
+					break;
+				case IAPWrapper.PAYRESULT_RECHARGE_SUCCESS://充值成功回调
 					break;
 				default:
 					break;
