@@ -1,5 +1,10 @@
 Sample_Java
 ===========
+
+###Sample for AnySDK_Framework_Java1.3.0.1 
+库更新：  
+1、更新框架1.3.0.1 
+
 ###Sample_v1.0.8 for AnySDK_Framework_Java1.2.3
 v1.0.8  -- 2014.09.25  
 库更新：  
