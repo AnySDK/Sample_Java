@@ -1,6 +1,18 @@
 Sample_Java
 ===========
-
+###Sample for AnySDK_Framework_Java1.4
+v1.4  -- 2015.1.4
+库更新：    
+1、新增AnySDK统计，该统计只是统计了接口调用的次数，以方便AnySDK产品的分析，默认是开启的，如果开发者介意改统计可以调用
+AgentManager::getInstance()->setIsAnaylticsEnabled（false）关闭统计接口    
+2、新增   
+isUserPluginExist  
+isIAPPluginExist  
+isAnalyticsPluginExist  
+isSharePluginExist  
+isSocialPluginExist  
+isPushPluginExist   
+判断系统插件是否存在接口   
 ###Sample for AnySDK_Framework_Java1.3.0.1 
 库更新：  
 1、更新框架1.3.0.1 
