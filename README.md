@@ -1,8 +1,12 @@
 Sample_Java
 ===========
-###Sample for AnySDK_Framework_Java1.4
-v1.4  -- 2015.1.4
-库更新：    
+###Samplefor AnySDK_Framework_C++ 1.5  
+v1.5 -- 2015.2.13  
+库更新：  
+1、新增接口获取框架版本号，开发者可通过AnySDK.getInstance().getFrameworkVersion()获得版本号
+###Sample for AnySDK_Framework_Java1.4  
+v1.4  -- 2015.1.4  
+库更新：      
 1、新增AnySDK统计，该统计只是统计了接口调用的次数，以方便AnySDK产品的分析，默认是开启的，如果开发者介意改统计可以调用
 AgentManager::getInstance()->setIsAnaylticsEnabled（false）关闭统计接口    
 2、新增   
