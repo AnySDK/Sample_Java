@@ -3,7 +3,7 @@ Sample_Java
 ###Samplefor AnySDK_Framework_C++ 1.5  
 v1.5 -- 2015.2.13  
 库更新：  
-1、新增接口获取框架版本号，开发者可通过AnySDK.getInstance().getFrameworkVersion()获得版本号
+1、新增接口获取框架版本号，开发者可通过AnySDK.getInstance().getFrameworkVersion()获得版本号  
 ###Sample for AnySDK_Framework_Java1.4  
 v1.4  -- 2015.1.4  
 库更新：      
