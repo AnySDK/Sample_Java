@@ -1,22 +1,11 @@
 package com.anysdk.sample;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 
 import com.anysdk.framework.AdsWrapper;
 import com.anysdk.framework.IAPWrapper;
@@ -38,9 +27,6 @@ import com.anysdk.framework.java.AnySDKUser;
 import com.anysdk.framework.java.ToolBarPlaceEnum;
 
 
-
-import android.R.bool;
-import android.R.string;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -51,25 +37,18 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class MainActivity extends Activity   implements OnClickListener{
 	private static final String TAG_STRING = "ANYSDK";
 	private static Activity mAct = null;
 	private static Handler mUIHandler = null;
-	private static boolean mFirst = false;
 	private static Dialog myDialog = null;
 	private final static String nd91Channle = "000007";
 	private Map<String, String> mProductionInfo = null;
@@ -126,11 +105,6 @@ public class MainActivity extends Activity   implements OnClickListener{
         	main.addView(shop);
 		}
         Log.d(TAG_STRING, "getCustomParam"+AnySDK.getInstance().getCustomParam());
-        Hashtable<String, String> info = new Hashtable<String, String>();
-//        info.put("Level_Id", "123456");
-//        AnySDKParam param(info);
-//        AnySDKAnalytics.getInstance().isFunctionSupported("startLevel",&param,null);
-        Log.d(TAG_STRING, String.valueOf(AnySDKAds.getInstance().isAdTypeSupported(AdsWrapper.AD_TYPE_BANNER)));
         
 	}
 	
@@ -150,19 +124,8 @@ public class MainActivity extends Activity   implements OnClickListener{
 	    String appSecret = "b9fada2f86e3f73948f52d9673366610";
 	    String privateKey = "0EE38DB7E37D13EBC50E329483167860";
 	    String oauthLoginServer = "http://oauth.anysdk.com/api/OauthLoginDemo/Login.php";
-		AnySDK.getInstance().initPluginSystem(this, appKey, appSecret, privateKey, oauthLoginServer);
+		AnySDK.getInstance().init(this, appKey, appSecret, privateKey, oauthLoginServer);
 		
-		/**
-		 * 对用户系统、支付系统、广告系统、统计系统、社交系统、推送系统、分享系统设置debug模式
-		 * 注意：debug模式开启，即开启了SDK的测试模式，所以上线前务必把debug模式设置为false
-		 */
-		AnySDKUser.getInstance().setDebugMode(true);
-		AnySDKPush.getInstance().setDebugMode(true);
-		AnySDKAnalytics.getInstance().setDebugMode(true);
-		AnySDKAds.getInstance().setDebugMode(true);
-		AnySDKShare.getInstance().setDebugMode(true);
-		AnySDKSocial.getInstance().setDebugMode(true);
-		AnySDKIAP.getInstance().setDebugMode(true);
 		/**
 		 * 初始化完成后，必须立即为系统设置监听，否则无法即使监听到回调信息
 		 */
