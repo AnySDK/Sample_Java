@@ -110,12 +110,11 @@ public class MainActivity extends Activity   implements OnClickListener{
 	
 	@Override
 	protected void onNewIntent(Intent intent) {
-		PluginWrapper.onNewIntent(intent);
 		super.onNewIntent(intent);
+		PluginWrapper.onNewIntent(intent);
 	}
 
-	void initAnySDK()
-	{
+	void initAnySDK() {
 	    /**
 	     * appKey、appSecret、privateKey不能使用Sample中的值，需要从打包工具中游戏管理界面获取，替换
 	     * oauthLoginServer参数是游戏服务提供的用来做登陆验证转发的接口地址。
@@ -341,8 +340,7 @@ public class MainActivity extends Activity   implements OnClickListener{
 		});
 	}
 	
-	public void initData()
-	{
+	public void initData() {
         mProductionInfo = new HashMap<String, String>();
         mProductionInfo.put("Product_Price", "1");
         if(AnySDK.getInstance().getChannelId().equals("000016") || AnySDK.getInstance().getChannelId().equals("000009")|| AnySDK.getInstance().getChannelId().equals("000349")){
@@ -542,33 +540,33 @@ public class MainActivity extends Activity   implements OnClickListener{
 	
 	}
 	
-	 @Override
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		PluginWrapper.onActivityResult(requestCode, resultCode, data);
 	}
 
 	public static void showDialog(String title, String msg) {
-	        final String curMsg = msg;
-	        final String curTitle = title;
+		final String curMsg = msg;
+		final String curTitle = title;
 	        
-	        mUIHandler.post(new Runnable() {
-	            @Override
-	            public void run() {
-	                new AlertDialog.Builder(mAct)
-	                .setTitle(curTitle)
-	                .setMessage(curMsg)
-	                .setPositiveButton("Ok", 
-	                        new DialogInterface.OnClickListener() {
+		mUIHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				new AlertDialog.Builder(mAct)
+				.setTitle(curTitle)
+				.setMessage(curMsg)
+				.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
 	                            
-	                            @Override
-	                            public void onClick(DialogInterface dialog, int which) {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
 	                                
-	                            }
-	                        }).create().show();
-	            }
-	        });
-	    }
+	                		}
+	                	}).create().show();
+			}
+		});
+	}
 	public void showTipDialog() {
         
         mUIHandler.post(new Runnable() {
@@ -577,67 +575,65 @@ public class MainActivity extends Activity   implements OnClickListener{
                 new AlertDialog.Builder(mAct)
                 .setTitle(R.string.paying_title)
                 .setMessage(R.string.paying_message)
-                .setPositiveButton("NO", 
-                        new DialogInterface.OnClickListener() {
-                            
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            	/**
-                       		  	* 重置支付状态
-                       		  	*/
-                                AnySDKIAP.getInstance().resetPayState();
-                            }
-                        })
-                .setNegativeButton("YES", 
-                        new DialogInterface.OnClickListener() {
-                            
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton("NO", new DialogInterface.OnClickListener() {
+                	
+                	@Override
+                	public void onClick(DialogInterface dialog, int which) {
+	                    	/**
+	               		  	* 重置支付状态
+	               		  	*/
+	                        AnySDKIAP.getInstance().resetPayState();
+	                    }
+                })
+                .setNegativeButton("YES", new DialogInterface.OnClickListener() {
+                	 
+                	 @Override
+                	 public void onClick(DialogInterface dialog, int which) {
                                 
-                            }
-                        }).create().show();
+                	 }
+                }).create().show();
             }
         });
     }
-	 public static void Exit() {
-		 mAct.finish();
-		 System.exit(0);
-		 
-	    }
-	 @Override
-	 protected void onDestroy() {
-		 super.onDestroy();
-		 /**
-		  * 对用户系统SDK资源进行释放
-		  */
-	     AnySDKUser.getInstance().callFunction("destroy");
-	     /**
-		  * 对AnySDK资源进行释放
-		  */
-	     AnySDK.getInstance().release();
-	 };
+	
+	public static void Exit() {
+		mAct.finish();
+		System.exit(0);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		PluginWrapper.onDestroy();
+		/**
+		 * 对AnySDK资源进行释放
+		 */
+		AnySDK.getInstance().release();
+	}
 	 
-	 public boolean isAppOnForeground() {
-			ActivityManager activityManager = (ActivityManager) getApplicationContext()
-					.getSystemService(Context.ACTIVITY_SERVICE);
-			String packageName = getApplicationContext().getPackageName();
-			List<RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-			if (appProcesses == null)
-				return false;
-			for (RunningAppProcessInfo appProcess : appProcesses) {
-				if (appProcess.processName.equals(packageName)
-						&& appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-					return true;
-				}
-			}
+	public boolean isAppOnForeground() {
+		ActivityManager activityManager = (ActivityManager) getApplicationContext()
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		String packageName = getApplicationContext().getPackageName();
+		List<RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+		if (appProcesses == null)
 			return false;
-		} 
-	 private boolean isAppForeground = true;
+		for (RunningAppProcessInfo appProcess : appProcesses) {
+			if (appProcess.processName.equals(packageName)
+					&& appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+				return true;
+			}
+		}
+		return false;
+	} 
+	
+	private boolean isAppForeground = true;
 	 
-	 @Override
+	@Override
 	protected void onStop() {
-		 super.onStop();
-		 AnySDKAnalytics.getInstance().stopSession();
+		super.onStop();
+		PluginWrapper.onStop();
+		AnySDKAnalytics.getInstance().stopSession();
 		if(!isAppOnForeground()){
 			isAppForeground = false;
 		}
@@ -656,18 +652,18 @@ public class MainActivity extends Activity   implements OnClickListener{
 			isAppForeground = true;			
 		}
 	}
+	
 	@Override
-	public void onPause()
-	{
-		PluginWrapper.onPause();
+	public void onPause() {
 		super.onPause();
+		PluginWrapper.onPause();
 	}
 	
-	
-	
-		
-		
-
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		PluginWrapper.onRestart();
+	}
 		
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -685,8 +681,8 @@ public class MainActivity extends Activity   implements OnClickListener{
 	}
 
 	private static int  getResourceId(String name, String type) {
-		    return mAct.getResources().getIdentifier(name, type, mAct.getPackageName());
-		}
+		return mAct.getResources().getIdentifier(name, type, mAct.getPackageName());
+	}
 		
 	private static LinearLayout myLayout;
 	/**
@@ -722,177 +718,174 @@ public class MainActivity extends Activity   implements OnClickListener{
 	    	
 	   	dialog02.show();
 	}
-	 private void showUserAction() {
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        View view = View.inflate(this, R.layout.activity_user, null);
-	        LinearLayout user = (LinearLayout) view.findViewById(R.id.user);
-	        if(AnySDKUser.getInstance().isFunctionSupported("logout"))
-	        {
-	        	Button logoutButton = new Button(this);
-	        	logoutButton.setOnClickListener(this);
-	        	logoutButton.setTag("logout");
-	        	logoutButton.setText("logout");
-	        	user.addView(logoutButton);
-	        	//this.addContentView(logoutButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        if(AnySDKUser.getInstance().isFunctionSupported("enterPlatform"))
-	        {
-	        	Button enterPlatformButton = new Button(this);
-	        	enterPlatformButton.setOnClickListener(this);
-	        	enterPlatformButton.setTag("enterPlatform");
-	        	enterPlatformButton.setText("enterPlatform");
-	        	user.addView(enterPlatformButton);
-	        	//this.addContentView(enterPlatformButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        if(AnySDKUser.getInstance().isFunctionSupported("showToolBar"))
-	        {
-	        	Button showToolBarButton = new Button(this);
-	        	showToolBarButton.setOnClickListener(this);
-	        	showToolBarButton.setTag("showToolBar");
-	        	showToolBarButton.setText("showToolBar");
-	        	user.addView(showToolBarButton);
-	        	//this.addContentView(showToolBarButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        if(AnySDKUser.getInstance().isFunctionSupported("hideToolBar"))
-	        {
-	        	Button hideToolBarButton = new Button(this);
-	        	hideToolBarButton.setOnClickListener(this);
-	        	hideToolBarButton.setTag("hideToolBar");
-	        	hideToolBarButton.setText("hideToolBar");
-	        	user.addView(hideToolBarButton);
-	        	//this.addContentView(hideToolBarButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        if(AnySDKUser.getInstance().isFunctionSupported("accountSwitch"))
-	        {
-	        	Button accoutSwitchButton = new Button(this);
-	        	accoutSwitchButton.setOnClickListener(this);
-	        	accoutSwitchButton.setTag("accountSwitch");
-	        	accoutSwitchButton.setText("accountSwitch");
-	        	user.addView(accoutSwitchButton);
-	        	//this.addContentView(accoutSwitchButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        if(AnySDKUser.getInstance().isFunctionSupported("realNameRegister"))
-	        {
-	        	Button realNameRegisterButton = new Button(this);
-	        	realNameRegisterButton.setOnClickListener(this);
-	        	realNameRegisterButton.setTag("realNameRegister");
-	        	realNameRegisterButton.setText("realNameRegister");
-	        	user.addView(realNameRegisterButton);
-	        	//this.addContentView(realNameRegisterButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        if(AnySDKUser.getInstance().isFunctionSupported("antiAddictionQuery"))
-	        {
-	        	Button antiAddictionQueryButton = new Button(this);
-	        	antiAddictionQueryButton.setOnClickListener(this);
-	        	antiAddictionQueryButton.setTag("antiAddictionQuery");
-	        	antiAddictionQueryButton.setText("antiAddictionQuery");
-	        	user.addView(antiAddictionQueryButton);
-	        	//this.addContentView(antiAddictionQueryButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        
-	        if(AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole"))
-	        {
-	        	Button submitLoginGameRoleButton = new Button(this);
-	        	submitLoginGameRoleButton.setOnClickListener(this);
-	        	submitLoginGameRoleButton.setTag("submitLoginGameRole");
-	        	submitLoginGameRoleButton.setText("submitLoginGameRole");
-	        	user.addView(submitLoginGameRoleButton);
-	        	//this.addContentView(antiAddictionQueryButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-	        }
-	        myDialog = builder.setView(view).create();
+	private void showUserAction() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		View view = View.inflate(this, R.layout.activity_user, null);
+		LinearLayout user = (LinearLayout) view.findViewById(R.id.user);
+		if(AnySDKUser.getInstance().isFunctionSupported("logout"))
+		{
+			Button logoutButton = new Button(this);
+			logoutButton.setOnClickListener(this);
+			logoutButton.setTag("logout");
+			logoutButton.setText("logout");
+			user.addView(logoutButton);
+			//this.addContentView(logoutButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		}
+		if(AnySDKUser.getInstance().isFunctionSupported("enterPlatform"))
+		{
+			Button enterPlatformButton = new Button(this);
+			enterPlatformButton.setOnClickListener(this);
+			enterPlatformButton.setTag("enterPlatform");
+			enterPlatformButton.setText("enterPlatform");
+			user.addView(enterPlatformButton);
+			//this.addContentView(enterPlatformButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		}
+		if(AnySDKUser.getInstance().isFunctionSupported("showToolBar"))
+		{
+			Button showToolBarButton = new Button(this);
+			showToolBarButton.setOnClickListener(this);
+			showToolBarButton.setTag("showToolBar");
+			showToolBarButton.setText("showToolBar");
+			user.addView(showToolBarButton);
+			//this.addContentView(showToolBarButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		}
+		if(AnySDKUser.getInstance().isFunctionSupported("hideToolBar"))
+        {
+        	Button hideToolBarButton = new Button(this);
+        	hideToolBarButton.setOnClickListener(this);
+        	hideToolBarButton.setTag("hideToolBar");
+        	hideToolBarButton.setText("hideToolBar");
+        	user.addView(hideToolBarButton);
+        	//this.addContentView(hideToolBarButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        }
+        if(AnySDKUser.getInstance().isFunctionSupported("accountSwitch"))
+        {
+        	Button accoutSwitchButton = new Button(this);
+        	accoutSwitchButton.setOnClickListener(this);
+        	accoutSwitchButton.setTag("accountSwitch");
+        	accoutSwitchButton.setText("accountSwitch");
+        	user.addView(accoutSwitchButton);
+        	//this.addContentView(accoutSwitchButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        }
+        if(AnySDKUser.getInstance().isFunctionSupported("realNameRegister"))
+        {
+        	Button realNameRegisterButton = new Button(this);
+        	realNameRegisterButton.setOnClickListener(this);
+        	realNameRegisterButton.setTag("realNameRegister");
+        	realNameRegisterButton.setText("realNameRegister");
+        	user.addView(realNameRegisterButton);
+        	//this.addContentView(realNameRegisterButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        }
+        if(AnySDKUser.getInstance().isFunctionSupported("antiAddictionQuery"))
+        {
+        	Button antiAddictionQueryButton = new Button(this);
+        	antiAddictionQueryButton.setOnClickListener(this);
+        	antiAddictionQueryButton.setTag("antiAddictionQuery");
+        	antiAddictionQueryButton.setText("antiAddictionQuery");
+        	user.addView(antiAddictionQueryButton);
+        	//this.addContentView(antiAddictionQueryButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        }
+        
+        if(AnySDKUser.getInstance().isFunctionSupported("submitLoginGameRole"))
+        {
+        	Button submitLoginGameRoleButton = new Button(this);
+        	submitLoginGameRoleButton.setOnClickListener(this);
+        	submitLoginGameRoleButton.setTag("submitLoginGameRole");
+        	submitLoginGameRoleButton.setText("submitLoginGameRole");
+        	user.addView(submitLoginGameRoleButton);
+        	//this.addContentView(antiAddictionQueryButton, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        }
+        myDialog = builder.setView(view).create();
 
-	        myDialog.show();
-	        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        myDialog.show();
+        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
 
-	        Button btnUser = (Button) view.findViewById(R.id.login);
-	        btnUser.setOnClickListener(this);
-	    }
+        Button btnUser = (Button) view.findViewById(R.id.login);
+        btnUser.setOnClickListener(this);
+	}
 	 
-	 private void showPayAction() {
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        View view = View.inflate(this, R.layout.activity_iap, null);
-	        myDialog = builder.setView(view).create();
+	private void showPayAction() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.activity_iap, null);
+        myDialog = builder.setView(view).create();
 
-	        myDialog.show();
-	        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        myDialog.show();
+        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-	        Button btnPay = (Button) myDialog.findViewById(R.id.pay);
-	        btnPay.setOnClickListener(this);
-	    }
+        Button btnPay = (Button) myDialog.findViewById(R.id.pay);
+        btnPay.setOnClickListener(this);
+    }
 	 
-	 private void showShareAction() {
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        View view = View.inflate(this, R.layout.activity_share, null);
-	        myDialog = builder.setView(view).create();
-
-	        myDialog.show();
-	        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-
-	        Button btnShare = (Button) myDialog.findViewById(R.id.share);
-	        btnShare.setOnClickListener(this);
-	    }
+	private void showShareAction() {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    View view = View.inflate(this, R.layout.activity_share, null);
+	    myDialog = builder.setView(view).create();
+	
+	    myDialog.show();
+	    myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+	
+	    Button btnShare = (Button) myDialog.findViewById(R.id.share);
+	    btnShare.setOnClickListener(this);
+	}
 	 
-	 private void showAdsAction() {
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        View view = View.inflate(this, R.layout.activity_ads, null);
-	        myDialog = builder.setView(view).create();
+	private void showAdsAction() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.activity_ads, null);
+        myDialog = builder.setView(view).create();
 
-	        myDialog.show();
-	        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        myDialog.show();
+        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-	        Button btnShow = (Button) myDialog.findViewById(R.id.show);
-	        btnShow.setOnClickListener(this);
-	        
-	        Button btnhide= (Button) myDialog.findViewById(R.id.hide);
-	        btnhide.setOnClickListener(this);
-	    }
+        Button btnShow = (Button) myDialog.findViewById(R.id.show);
+        btnShow.setOnClickListener(this);
+        
+        Button btnhide= (Button) myDialog.findViewById(R.id.hide);
+        btnhide.setOnClickListener(this);
+    }
 	 
-	 private void showSocialAction() {
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        View view = View.inflate(this, R.layout.activity_social, null);
-	        myDialog = builder.setView(view).create();
+	private void showSocialAction() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.activity_social, null);
+        myDialog = builder.setView(view).create();
 
-	        myDialog.show();
-	        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        myDialog.show();
+        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-	        Button btnSubmitScore = (Button) myDialog.findViewById(R.id.submitScore);
-	        btnSubmitScore.setOnClickListener(this);
-	        
-	        Button btnPay = (Button) myDialog.findViewById(R.id.showLeaderboard);
-	        btnPay.setOnClickListener(this);
-	        
-	        Button btnUnlockAchievement = (Button) myDialog.findViewById(R.id.unlockAchievement);
-	        btnUnlockAchievement.setOnClickListener(this);
-	        
-	        Button btnShowAchievements = (Button) myDialog.findViewById(R.id.showAchievements);
-	        btnShowAchievements.setOnClickListener(this);
-	    }
+        Button btnSubmitScore = (Button) myDialog.findViewById(R.id.submitScore);
+        btnSubmitScore.setOnClickListener(this);
+        
+        Button btnPay = (Button) myDialog.findViewById(R.id.showLeaderboard);
+        btnPay.setOnClickListener(this);
+        
+        Button btnUnlockAchievement = (Button) myDialog.findViewById(R.id.unlockAchievement);
+        btnUnlockAchievement.setOnClickListener(this);
+        
+        Button btnShowAchievements = (Button) myDialog.findViewById(R.id.showAchievements);
+        btnShowAchievements.setOnClickListener(this);
+    }
 	 
-	 private void showPushAction() {
-	        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	        View view = View.inflate(this, R.layout.activity_push, null);
-	        myDialog = builder.setView(view).create();
+	private void showPushAction() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this, R.layout.activity_push, null);
+        myDialog = builder.setView(view).create();
 
-	        myDialog.show();
-	        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        myDialog.show();
+        myDialog.getWindow().setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-	        Button btnStopPush = (Button) myDialog.findViewById(R.id.closePush);
-	        btnStopPush.setOnClickListener(this);
-	        
-	        Button btnSetAlias = (Button) myDialog.findViewById(R.id.setAlias);
-	        btnSetAlias.setOnClickListener(this);
-	        
-	        Button btnDelAlias = (Button) myDialog.findViewById(R.id.delAlias);
-	        btnDelAlias.setOnClickListener(this);
-	        
-	        Button btnSetTags = (Button) myDialog.findViewById(R.id.setTags);
-	        btnSetTags.setOnClickListener(this);
-	        
-	        Button btnDelTags = (Button) myDialog.findViewById(R.id.delTags);
-	        btnDelTags.setOnClickListener(this);
-	    }
-	 
-	 
-	 
+        Button btnStopPush = (Button) myDialog.findViewById(R.id.closePush);
+        btnStopPush.setOnClickListener(this);
+        
+        Button btnSetAlias = (Button) myDialog.findViewById(R.id.setAlias);
+        btnSetAlias.setOnClickListener(this);
+        
+        Button btnDelAlias = (Button) myDialog.findViewById(R.id.delAlias);
+        btnDelAlias.setOnClickListener(this);
+        
+        Button btnSetTags = (Button) myDialog.findViewById(R.id.setTags);
+        btnSetTags.setOnClickListener(this);
+        
+        Button btnDelTags = (Button) myDialog.findViewById(R.id.delTags);
+        btnDelTags.setOnClickListener(this);
+    }
 }
