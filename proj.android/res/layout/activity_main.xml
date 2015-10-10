@@ -43,7 +43,13 @@
             android:id="@+id/pushSystem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Push system" />  
+            android:text="Push system" /> 
+        
+        <Button
+            android:id="@+id/RECSystem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REC system" /> 
         
         
 
