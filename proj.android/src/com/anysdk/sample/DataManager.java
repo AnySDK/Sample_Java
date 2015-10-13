@@ -86,6 +86,7 @@ public class DataManager {
         
         mVideoInfo = new HashMap<String, String>();
         mVideoInfo.put("Video_Title", "test");
+        mVideoInfo.put("Video_Desc", "RECSDK是一个神奇的SDK");
         
         mAccountInfo = new HashMap<String, String>();
         mAccountInfo.put("Level_Id", "123456");

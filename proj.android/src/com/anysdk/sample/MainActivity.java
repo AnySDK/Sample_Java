@@ -19,6 +19,7 @@ import com.anysdk.framework.AdsWrapper;
 import com.anysdk.framework.IAPWrapper;
 import com.anysdk.framework.PluginWrapper;
 import com.anysdk.framework.PushWrapper;
+import com.anysdk.framework.RECWrapper;
 import com.anysdk.framework.ShareWrapper;
 import com.anysdk.framework.SocialWrapper;
 import com.anysdk.framework.UserWrapper;
@@ -29,6 +30,7 @@ import com.anysdk.framework.java.AnySDKIAP;
 import com.anysdk.framework.java.AnySDKListener;
 import com.anysdk.framework.java.AnySDKParam;
 import com.anysdk.framework.java.AnySDKPush;
+import com.anysdk.framework.java.AnySDKREC;
 import com.anysdk.framework.java.AnySDKShare;
 import com.anysdk.framework.java.AnySDKSocial;
 import com.anysdk.framework.java.AnySDKUser;
@@ -444,6 +446,51 @@ public class MainActivity extends Activity {
 				default:
 					break;
 				}
+			}
+		});
+		
+		//为录屏分享系统设置监听
+		AnySDKREC.getInstance().setListener(new AnySDKListener() {
+			
+			@Override
+			public void onCallBack(int arg0, String arg1) {
+				Log.d(String.valueOf(arg0), arg1);
+			    switch(arg0)
+			    {
+			        case RECWrapper.RECRESULT_RECINITSUCCESSS://初始化成功
+			        	Log.d(TAG_STRING,"RECRESULT_RECINITSUCCESSS\n");
+			            break;
+			        case RECWrapper.RECRESULT_RECINITFAIL://初始化失败
+			        	Log.d(TAG_STRING,"RECRESULT_RECINITFAIL\n");
+			            break;
+			        case RECWrapper.RECRESULT_RECSTARTRECORDING://开始录制
+			        	Log.d(TAG_STRING,"RECRESULT_RECSTARTRECORDING \n");
+			            break;
+			        case RECWrapper.RECRESULT_RECSTOPRECORDING://结束录制
+			        	Log.d(TAG_STRING,"RECRESULT_RECSTOPRECORDING \n");
+			            break;
+			        case RECWrapper.RECRESULT_RECPAUSEECORDING://暂停录制
+			        	Log.d(TAG_STRING,"RECRESULT_RECPAUSEECORDING \n");
+			            break;
+			        case RECWrapper.RECRESULT_RECRESUMERECORDING://恢复录制
+			        	Log.d(TAG_STRING,"RECRESULT_RECRESUMERECORDING \n");
+			            break;
+			        case RECWrapper.RECRESULT_RECENTERSDKPAGE://进入SDK页面
+			        	Log.d(TAG_STRING,"RECRESULT_RECENTERSDKPAGE \n");
+			            break;
+			        case RECWrapper.RECRESULT_RECOUTSDKPAGE://退出SDK页面
+			        	Log.d(TAG_STRING,"RECRESULT_RECOUTSDKPAGE \n");
+			            break;  
+			        case RECWrapper.RECRESULT_RECSHARESUCCESS://视频分享成功
+			        	Log.d(TAG_STRING,"RECRESULT_RECSHARESUCCESS \n");
+			            break;
+			        case RECWrapper.RECRESULT_RECSHAREFAIL://视频分享失败
+			        	Log.d(TAG_STRING,"RECRESULT_RECSHAREFAIL \n");
+			            break;
+			        default:
+			            break;
+			    }
+				
 			}
 		});
 	}
