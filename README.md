@@ -1,5 +1,11 @@
 Sample_Java
 ===========
+###Samplefor AnySDK_Framework_Java2.1.0
+v2.1.0 -- 2015.10.29  
+库更新：  
+1、更新框架2.1.0
+2、sample增加崩溃分析、录屏分享范例代码
+
 ###Samplefor AnySDK_Framework_Java2.0  
 v2.0 -- 2015.5.29  
 库更新：  
