@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.text.format.Time;
+
 import com.anysdk.framework.AnalyticsWrapper;
 import com.anysdk.framework.java.AnySDK;
 import com.anysdk.framework.java.AnySDKAnalytics;
@@ -26,6 +28,11 @@ public class DataManager {
 	private Map<String, String> mLevelFailInfo = null;
 	private Map<String, String> mTaskStartInfo = null;
 	private Map<String, String> mTaskFailInfo = null;
+	
+	private Map<String, String> mLoginInfo = null;
+
+    private Map<String, String> mPayInfo = null;
+
 	
 	
 	private static DataManager instance;
@@ -140,6 +147,24 @@ public class DataManager {
         mTaskFailInfo.put("Task_Id", "123456");
         mTaskFailInfo.put("Fail_Reason", "test");
         
+        mLoginInfo = new HashMap<String, String>();
+        mLoginInfo.put("User_Id", "123456");
+        mLoginInfo.put("Role_Id", "test");
+        mLoginInfo.put("Role_Name", "test");
+        mLoginInfo.put("Level", "10");
+
+        mPayInfo = new HashMap<String, String>();
+        mPayInfo.put("User_Id", "123456");
+        mPayInfo.put("Order_Id", Time.getCurrentTimezone());
+        mPayInfo.put("Currency_Amount", "5");
+        mPayInfo.put("Currency_Type", "CNY");
+        mPayInfo.put("Payment_Type", "test");
+        mPayInfo.put("Payment_Time", Time.getCurrentTimezone());
+        mPayInfo.put("Item_Id", "1");
+        mPayInfo.put("Item_Count", "1");
+
+
+        
         
 	}
 	public Map<String, String> getRoleInfo() {
@@ -201,6 +226,14 @@ public class DataManager {
 	public Map<String, String> getTaskFailInfo() {
 		return mTaskFailInfo;
 	}
+	
+	public Map<String, String> getLoginInfo() {
+        return mLoginInfo;
+    }
+	
+	public Map<String, String> getPayInfo() {
+        return mPayInfo;
+    }
 	
 	public ArrayList<String> getTagInfo() {
 		return mTagInfo;

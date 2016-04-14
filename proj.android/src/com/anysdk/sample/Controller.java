@@ -6,6 +6,7 @@ import java.util.List;
 import android.util.Log;
 
 import com.anysdk.framework.AdsWrapper;
+import com.anysdk.framework.java.AnySDKAdTracking;
 import com.anysdk.framework.java.AnySDKAds;
 import com.anysdk.framework.java.AnySDKAnalytics;
 import com.anysdk.framework.java.AnySDKCrash;
@@ -24,7 +25,7 @@ public class Controller {
 		if (tag.equals("user")) {
 			AnySDKUser user = AnySDKUser.getInstance();
 			if (title.equals("login")) {
-				user.login();
+				user.login(DataManager.getInstance().getAccountInfo());
 			} else if (title.equals("isLogined")) {
 				Log.d("isLogined", user.isLogined() + "");
 			} else if (title.equals("getUserID")) {
@@ -204,7 +205,32 @@ public class Controller {
 			} else if (title.equals("leaveBreadcrumb")) {
 				crash.leaveBreadcrumb("leaveBreadcrumb");
 			}
-		}else if (tag.equals("Banner")) {
+		} else if (tag.equals("adtracking")) {
+            AnySDKAdTracking adTracking = AnySDKAdTracking.getInstance();
+            if (title.equals("onRegister")) {
+                adTracking.onRegister("userid");
+            } else if (title.equals("onLogin")) {
+                adTracking.onLogin(DataManager.getInstance().getLoginInfo());
+            }else if (title.equals("onPay")) {
+                adTracking.onPay(DataManager.getInstance().getPayInfo());
+            } else if (title.equals("trackEvent")) {
+                adTracking.trackEvent("event_1");
+                adTracking.trackEvent("event_2");
+                adTracking.trackEvent("onCustEvent1");
+                adTracking.trackEvent("onCustEvent2");
+            }else if (title.equals("onCreateRole")) {
+                adTracking.trackEvent("onCreateRole", DataManager.getInstance().getLoginInfo());
+                adTracking.callFunction("onCreateRole", new  AnySDKParam(DataManager.getInstance().getLoginInfo()));
+            }else if (title.equals("onLevelUp")) {
+                adTracking.trackEvent("onLevelUp", DataManager.getInstance().getLoginInfo());
+                adTracking.callFunction("onLevelUp", new  AnySDKParam(DataManager.getInstance().getLoginInfo()));
+
+            }else if (title.equals("onStartToPay")) {
+                adTracking.trackEvent("onStartToPay", DataManager.getInstance().getPayInfo());
+                adTracking.callFunction("onStartToPay", new  AnySDKParam(DataManager.getInstance().getPayInfo()));
+
+            }
+        }else if (tag.equals("Banner")) {
 			aboutAds(AdsWrapper.AD_TYPE_BANNER,title);
 		}else if (tag.equals("FullScreen")) {
 			aboutAds(AdsWrapper.AD_TYPE_FULLSCREEN,title);
@@ -324,6 +350,20 @@ public class Controller {
 		}
 		return source;
 	}
+	
+	public static List<String> extendAdTrackingFunction(List<String> source) {
+        AnySDKAdTracking instance = AnySDKAdTracking.getInstance();
+        if (instance.isFunctionSupported("onCreateRole")) {
+            source.add("onCreateRole");
+        }
+        if (instance.isFunctionSupported("onLevelUp")) {
+            source.add("onLevelUp");
+        }
+        if (instance.isFunctionSupported("onStartToPay")) {
+            source.add("onStartToPay");
+        }
+        return source;
+    }
 	
 	public static void aboutAds(int type, String title){
 		AnySDKAds ads = AnySDKAds.getInstance();
