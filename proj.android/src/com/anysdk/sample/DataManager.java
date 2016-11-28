@@ -60,7 +60,7 @@ public class DataManager {
 		mRoleInfo.put("partyName", "test");
 		mRoleInfo.put("vipLevel", "1");
 		mRoleInfo.put("roleCTime", "1480318110");
-		mRoleInfo.put("roleLevelMTime", "1");
+		mRoleInfo.put("roleLevelMTime", "-1");
 		
         mProductionInfo = new HashMap<String, String>();
         mProductionInfo.put("Product_Id", "1");
