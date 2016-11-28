@@ -50,28 +50,35 @@ public class DataManager {
 	private void initData()
 	{
 		mRoleInfo = new HashMap<String, String>();
+		mRoleInfo.put("dataType", "1");
 		mRoleInfo.put("roleId", "123456");
 		mRoleInfo.put("roleName", "test");
-		mRoleInfo.put("roleLevel", "10");
-		mRoleInfo.put("zoneId", "123");
+		mRoleInfo.put("roleLevel", "1");
+		mRoleInfo.put("zoneId", "1");
 		mRoleInfo.put("zoneName", "test");
-		mRoleInfo.put("dataType", "1");
-		mRoleInfo.put("ext", "login");
+		mRoleInfo.put("balance", "1");
+		mRoleInfo.put("partyName", "test");
+		mRoleInfo.put("vipLevel", "1");
+		mRoleInfo.put("roleCTime", "1480318110");
+		mRoleInfo.put("roleLevelMTime", "-1");
 		
         mProductionInfo = new HashMap<String, String>();
+        mProductionInfo.put("Product_Id", "1");
+        mProductionInfo.put("Product_Name", "10元宝");
         mProductionInfo.put("Product_Price", "1");
-        if(AnySDK.getInstance().getChannelId().equals("000016") || AnySDK.getInstance().getChannelId().equals("000009")|| AnySDK.getInstance().getChannelId().equals("000349")){
-        	mProductionInfo.put("Product_Id", "10");
-		}else{
-			mProductionInfo.put("Product_Id", "monthly");
-		}
-        mProductionInfo.put("Product_Name","gold");
-        mProductionInfo.put("Server_Id", "13");
         mProductionInfo.put("Product_Count", "1");
-        mProductionInfo.put("Role_Id","1");
-        mProductionInfo.put("Role_Name", "1");
+        mProductionInfo.put("Product_Desc", "gold");
+        mProductionInfo.put("Coin_Name","元宝");
+        mProductionInfo.put("Coin_Rate", "10");
+        mProductionInfo.put("Role_Id","123456");
+        mProductionInfo.put("Role_Name", "test");
         mProductionInfo.put("Role_Grade", "1");
         mProductionInfo.put("Role_Balance", "1");
+        mProductionInfo.put("Vip_Level", "1");
+        mProductionInfo.put("Party_Name", "test");
+        mProductionInfo.put("Server_Id", "1");
+        mProductionInfo.put("Server_Name", "test");
+        mProductionInfo.put("EXT", "test");
         
         mShareInfo = new HashMap<String, String>();
         mShareInfo.put("title","ShareSDK是一个神奇的SDK");
